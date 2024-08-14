@@ -1,25 +1,38 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import MyNavbar from './components/Navbar';
+import CarList from './components/CarList';
+import CarDetails from './components/CarDetails';
+import Footer from './components/Footer';
 import './App.css';
 
-function App() {
+
+
+const App = () => {
+  const [selectedCar, setSelectedCar] = useState(null);
+  const [filters, setFilters] = useState({});
+
+
+  const handleSelectCar = (car) => {
+    setSelectedCar(car);
+  };
+
+  const handleCloseDetails = () => {
+    setSelectedCar(null);
+  };
+
+
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <MyNavbar />
+      <CarList onSelectCar={handleSelectCar} />
+      <CarDetails car={selectedCar} onClose={handleCloseDetails} />
+      <Footer/>
     </div>
   );
-}
+};
 
 export default App;
